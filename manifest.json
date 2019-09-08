@@ -1,0 +1,24 @@
+{
+
+    "manifest_version": 2,
+    "name": "Article Bias Checker",
+    "version": "1.0",
+
+    "description": "Checks an article for political bias. Press the icon to see what political bias may exist, and submit your own opinion of the article's bias.",
+    "icons": {
+        "32": "icons/logo-32.png",
+        "48": "icons/logo-48.png"
+    },
+
+    "permissions": [
+        "<all_urls>",
+        "activeTab",
+        "cookies"
+    ],
+
+    "browser_action": {
+        "default_icon": "icons/logo-32.png",
+        "default_title": "News Checker",
+        "default_popup": "popup/popup.html"
+    }
+}
