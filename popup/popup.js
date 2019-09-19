@@ -105,7 +105,7 @@ slider.oninput = function() {
 // Handle the submit button.
 let submitButton = document.getElementById("submit");
 let p = document.createElement("p");
-submit.onclick = function(){
+submitButton.onclick = function(){
     // Reruns the script to ensure the article data is recieved by the extension.
     browser.tabs.executeScript({file: "/content_scripts/extract.js"})
     .catch(reportExecuteScriptError);
