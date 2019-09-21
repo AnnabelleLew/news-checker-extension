@@ -115,5 +115,5 @@ submitButton.onclick = function(){
     var bias = slider.value.toString();
 
     // Sends the article data to the News Checker website.
-    location.href = "http://127.0.0.1:8000/catalog/add?url="+page_url+"&text="+article+"&bias="+bias;
+    location.href = "https://newschecker.org/catalog/add?url="+page_url+"&text="+article+"&bias="+bias;
 };
