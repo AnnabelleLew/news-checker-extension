@@ -1,10 +1,10 @@
 {
 
     "manifest_version": 2,
-    "name": "Article Bias Checker",
-    "version": "1.0",
+    "name": "News Checker",
+    "version": "0.1",
 
-    "description": "Checks an article for political bias. Press the icon to see what political bias may exist, and submit your own opinion of the article's bias.",
+    "description": "The News Checker web extension checks an article for political bias. Press the icon to see what political bias may exist, and submit your own opinion of the article's bias. Still in development.",
     "icons": {
         "32": "icons/logo-32.png",
         "48": "icons/logo-48.png"
