@@ -24,13 +24,13 @@
         var div_elements = [];
         var div = document.createElement("div");
         for (i in p_elements) {
-            div.innerHTML += p_elements[i].textContent;
+            div.textContent += p_elements[i].textContent;
         }
         // Gets all the elements that have the class names that article text is stored in on websites.
         for (i in article_classes) {
             div_elements = document.getElementsByClassName(article_classes[i]);
             for (j in div_elements) {
-                div.innerHTML += div_elements[j].textContent;
+                div.textContent += div_elements[j].textContent;
             }
         }
         data = div.textContent || div.innerText || "";
