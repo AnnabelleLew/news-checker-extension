@@ -138,6 +138,7 @@ submitButton.onclick = function(){
         			displayError('failed to upload');
         		} else if (uploadResult=='success'){
         			console.log('successfully uploaded file');
+        			location.href = "added.html";
         		}
         	}
         }
