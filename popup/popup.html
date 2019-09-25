@@ -15,11 +15,13 @@
         <div id="form">
             <h3>Political Bias Survey</h3>
             <p id="username"></p>
-            <input type="range" min="-5" max="5" value="0" class="slider" id="range">
+            <input name="bias" type="range" min="-5" max="5" value="0" class="slider" id="range">
+            <input name="url" id="url" class="hidden">
+            <input name="text" id="text" class="hidden">
             <p id="output"></p>
             <hr>
             <div id="submit">
-                <button type="button">Submit</button>
+                <button type="submit">Submit</button>
             </div>
         </div>
         <div id="error-content" class="hidden">

@@ -20,13 +20,17 @@ function reportExecuteScriptError(error) {
 browser.tabs.executeScript({file: "/content_scripts/extract.js"})
 .catch(reportExecuteScriptError);
 
+let text_element = document.getElementById("text");
+let url_element = document.getElementById("url");
+
 // Handles the extract.js messages.
 var page_url = window.location.href;
 browser.runtime.onMessage.addListener((message) => {
     if (message.command === "insert") {
         // Store the article text in a <p> element in the code.
         if (message.text != "") {
-            p.textContent = message.text;
+            text_element.textContent = message.text.replace(/ /g,"_").replace(/"/g,"'").replace(/“/g,"'").replace(/”/g,"'").replace(/[\/#!$%\^&\*;:{}=\-_`~()]/g,"_");
+            url_element.urlContent = page_url;
         }
         page_url = message.url;
     } else if (message.command === "empty") {
@@ -103,18 +107,39 @@ slider.oninput = function() {
     }
 }
 
-// Handle the submit button.
 let submitButton = document.getElementById("submit");
-let p = document.createElement("p");
+var xhttp = new XMLHttpRequest();
 submitButton.onclick = function(){
-    // Reruns the script to ensure the article data is recieved by the extension.
-    browser.tabs.executeScript({file: "/content_scripts/extract.js"})
-    .catch(reportExecuteScriptError);
-
-    // Stores the article to be sent.
-    var article = p.textContent.replace(/ /g,"_").replace(/"/g,"'").replace(/“/g,"'").replace(/”/g,"'").replace(/[\/#!$%\^&\*;:{}=\-_`~()]/g,"_");
-    var bias = slider.value.toString();
-
-    // Sends the article data to the News Checker website.
-    location.href = "www.newschecker.org/catalog/add?url="+page_url+"&text="+article+"&bias="+bias;
+	browser.tabs.executeScript({file: "/content_scripts/extract.js"})
+	.catch(reportExecuteScriptError);
+	var bias = slider.value.toString();
+	var data = new FormData();
+	console.log(page_url);
+	data.append("url", page_url);
+	console.log(text_element.textContent.replace(/\W/g, ''));
+	data.append("text", text_element.textContent.replace(/\W/g, ''));
+	console.log(bias);
+	data.append("bias", bias);
+	xhttp.open("POST", "http://www.newschecker.org/catalog/add/", true);
+	xhttp.send(data);
+	xhttp.onreadystatechange = function() {
+		console.log(xhttp.readyState === xhttp.DONE);
+		console.log(xhttp.status);
+		if (xhttp.readyState === xhttp.DONE) {
+			console.log(xhttp.responseText);
+       		if (xhttp.status === 200) {
+				console.log('testing');
+				console.log(xhttp.responseText);
+       			var data = JSON.parse(xhttp.responseText);
+       			var uploadResult = data['message'];
+        		console.log('uploadResult=',uploadResult);
+				if (uploadResult=='failure'){
+					console.log('failed to upload data');
+        			displayError('failed to upload');
+        		} else if (uploadResult=='success'){
+        			console.log('successfully uploaded file');
+        		}
+        	}
+        }
+    }
 };

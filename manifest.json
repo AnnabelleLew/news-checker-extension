@@ -2,7 +2,7 @@
 
     "manifest_version": 2,
     "name": "News Checker",
-    "version": "0.1",
+    "version": "0.1.1",
 
     "description": "The News Checker web extension checks an article for political bias. Press the icon to see what political bias may exist, and submit your own opinion of the article's bias. Still in development.",
     "icons": {
@@ -16,6 +16,10 @@
         "cookies",
         "*://*.newschecker.org"
     ],
+
+    "externally_connectable": {
+        "matches": ["*://*.newschecker.org/*"]
+    },
 
     "browser_action": {
         "default_icon": "icons/logo-32.png",
