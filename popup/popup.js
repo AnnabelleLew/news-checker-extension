@@ -39,14 +39,15 @@ browser.runtime.onMessage.addListener((message) => {
 // Ensures the user is logged in before using the extension.
 var username_display = document.getElementById("username");
 // Checks for the website username cookie.
-var gettingCookies = browser.cookies.get({
-    url: "http://127.0.0.1:8000/",
+var gettingCookies = browser.cookies.getAll({
+	domain: "www.newschecker.org",
     name: "news_checker_username"
 });
 // If the cookie if found, insert the username in the extension page.
 gettingCookies.then((cookie) => {
     if (cookie) {
-        username_display.textContent = "Username: "+cookie.value;
+    	console.log(cookie[0]);
+        username_display.textContent = "Username: "+cookie[0].value;
         document.getElementById("submit").classList.remove("hidden");
     }
 });
@@ -115,5 +116,5 @@ submitButton.onclick = function(){
     var bias = slider.value.toString();
 
     // Sends the article data to the News Checker website.
-    location.href = "https://newschecker.org/catalog/add?url="+page_url+"&text="+article+"&bias="+bias;
+    location.href = "www.newschecker.org/catalog/add?url="+page_url+"&text="+article+"&bias="+bias;
 };

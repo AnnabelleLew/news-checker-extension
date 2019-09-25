@@ -13,7 +13,8 @@
     "permissions": [
         "<all_urls>",
         "activeTab",
-        "cookies"
+        "cookies",
+        "*://*.newschecker.org"
     ],
 
     "browser_action": {
