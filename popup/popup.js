@@ -22,6 +22,7 @@ browser.tabs.executeScript({file: "/content_scripts/extract.js"})
 
 let text_element = document.getElementById("text");
 let url_element = document.getElementById("url");
+var username = ""
 
 // Handles the extract.js messages.
 var page_url = window.location.href;
@@ -52,6 +53,7 @@ gettingCookies.then((cookie) => {
     if (cookie) {
     	console.log(cookie[0]);
         username_display.textContent = "Username: "+cookie[0].value;
+        username = cookie[0].value;
         document.getElementById("submit").classList.remove("hidden");
     }
 });
@@ -120,6 +122,7 @@ submitButton.onclick = function(){
 	data.append("text", text_element.textContent.replace(/\W/g, ''));
 	console.log(bias);
 	data.append("bias", bias);
+	data.append("username", username);
 	xhttp.open("POST", "http://www.newschecker.org/catalog/add/", true);
 	xhttp.send(data);
 	xhttp.onreadystatechange = function() {
